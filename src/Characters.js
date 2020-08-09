@@ -1,8 +1,10 @@
 import React, {Component} from "react"
 import * as Constants from "./constants/index"
-import { AnimateOnChange } from 'react-animation';
+import { AnimateOnChange, HideUntilLoaded } from 'react-animation';
 import axios from 'axios';
 import cheerio from 'cheerio';
+
+import './style.css'
 
 class Characters extends Component {
     constructor() {
@@ -125,13 +127,15 @@ class Characters extends Component {
     render() {
         return (
 
-            <div>
+            <div className="center">
                 {this.state.isLoading ? <p>Loading</p> :
                 <div>
-                {
-                this.state.image !== "" &&
-                <img src={this.state.image} alt="character"></img>
-                }
+                    <HideUntilLoaded imageToLoad={this.state.image}>
+                    {
+                    this.state.image !== "" &&
+                    <img src={this.state.image} alt="character"></img>
+                    }
+                    </HideUntilLoaded>
                 {
                 this.state.name !== "" && 
                 <p>Name: {this.state.name}</p>

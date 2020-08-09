@@ -2,6 +2,8 @@ import React, {Component} from "react"
 import * as Constants from "./constants/index"
 import { AnimateOnChange } from 'react-animation';
 
+import './style.css'
+
 
 class Spells extends Component {
     constructor() {
@@ -38,9 +40,7 @@ class Spells extends Component {
     render() {
         return (
             
-            <div>
-                <button onClick={this.handleChange}>Give a Random Spell</button>
-                <br/>
+            <div className="center">
                 <AnimateOnChange>
                 {
                 this.state.spell !== "" && 
@@ -55,6 +55,9 @@ class Spells extends Component {
                 <p>Effect: {this.state.effect}</p>
                 }
                 </AnimateOnChange>
+                <br/>
+                <button onClick={this.handleChange}>Give a Random Spell</button>
+                <br/>
             </div>
             
         )
