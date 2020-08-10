@@ -3,6 +3,8 @@ import { AnimateOnChange } from 'react-animation';
 import Characters from './Characters';
 import Spells from './Spells';
 
+import './style.css';
+
 class Homepage extends Component {
     constructor() {
         super()
@@ -30,17 +32,20 @@ class Homepage extends Component {
 
     render(){
         return(
-            <div>
-                {this.state.homepage ?
+            <AnimateOnChange style={{display: 'block'}} durationOut="500">
                 <div>
-                <p>Welcome to Potterworld!</p>
-                <button name="characters" onClick={this.handleClick}>Characters</button>
-                <button name="spells" onClick={this.handleClick}>Spells</button>
-                </div> :
-                <button name="homepage" onClick={this.returnHomepage}>Return to Homepage</button>}
-                {this.state.characters && <Characters/>}
-                {this.state.spells && <Spells/>}
-            </div>
+                    {this.state.homepage ?
+                    <div>
+                    <h1>Welcome to Potterworld</h1>
+                    
+                    <button className="animated-button2" name="characters" onClick={this.handleClick}><span></span><span></span><span></span><span></span>Characters</button>
+                    <button className="animated-button2" name="spells" onClick={this.handleClick}><span></span><span></span><span></span><span></span>Spells</button>
+                    </div> :
+                    <button className="animated-button3" name="homepage" onClick={this.returnHomepage}><span></span><span></span><span></span><span></span>Return to Homepage</button>}
+                    {this.state.characters && <Characters/>}
+                    {this.state.spells && <Spells/>}
+                </div>
+            </AnimateOnChange>
         )
     }
 }

@@ -2,4 +2,23 @@ h1 {
     font-family: 'harry_pregular', Arial, sans-serif;
     font-weight:normal;
     font-style:normal;
+    font-size: 150px;
+    text-align: center;
+    color: orange;
+    -webkit-text-stroke: 3px honeydew;
+    user-select: none;
     }
+h2 {
+    font-family: 'harry_pregular', Arial, sans-serif;
+    font-weight:normal;
+    font-style:normal;
+    font-size: 50px;
+    text-align: center;
+    color: orange;
+    margin-bottom: -25px;
+    }
+body {
+    background: rgb(1,0,18);
+    background: radial-gradient(circle, rgba(1,0,18,1) 0%, rgba(18,0,50,1) 90%, rgba(8,0,32,1) 100%);
+}
+

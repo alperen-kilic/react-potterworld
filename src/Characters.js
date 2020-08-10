@@ -28,7 +28,7 @@ class Characters extends Component {
             alias: "",
             wand: "",
             animagus: "",
-
+            extraInfo: false
 
         }
         this.clickEvent = this.clickEvent.bind(this);
@@ -94,6 +94,11 @@ class Characters extends Component {
         })
         const randNum = Math.floor(Math.random() * this.state.allCharacters.length)
         const randCharacter = this.state.allCharacters[randNum]
+        let extras = false
+        if(randCharacter.ministryOfMagic || randCharacter.orderOfThePhoenix || randCharacter.dumbledoresArmy || randCharacter.deathEater)
+        {
+            extras = true
+        }
         console.log(randNum)
         axios.get('https://harrypotter.fandom.com/wiki/' + randCharacter.name.replace(/ /g,"_"))
             .then(response => {
@@ -116,6 +121,7 @@ class Characters extends Component {
                     orderOfThePhoenix: randCharacter.orderOfThePhoenix || false,
                     dumbledoresArmy: randCharacter.dumbledoresArmy || false,
                     deathEater: randCharacter.deathEater || false,
+                    extraInfo: extras,
                     isLoading: false
                 })
             }).catch(error => {
@@ -130,7 +136,8 @@ class Characters extends Component {
             <div className="center">
                 {this.state.isLoading ? <p>Loading</p> :
                 <div>
-                    <HideUntilLoaded imageToLoad={this.state.image}>
+                    <HideUntilLoaded imageToLoad={this.state.image}
+                    Spinner={() => <div>Loading...</div>}>
                     {
                     this.state.image !== "" &&
                     <img src={this.state.image} alt="character"></img>
@@ -138,47 +145,51 @@ class Characters extends Component {
                     </HideUntilLoaded>
                 {
                 this.state.name !== "" && 
-                <p>Name: {this.state.name}</p>
+                <div><h2>Name</h2><p>{this.state.name}</p></div>
                 }
                 {
                 this.state.alias !== "" && 
-                <p>Alias: {this.state.alias}</p>
+                <div><h2>Alias</h2><p>{this.state.alias}</p></div>
                 }
                 {
                 this.state.role !== "" && 
-                <p>Role: {this.state.role}</p>
+                <div><h2>Role</h2><p>{this.state.role}</p></div>
                 }
                 {
                 this.state.house !== "" && 
-                <p>House: {this.state.house}</p>
+                <div><h2>House</h2><p>{this.state.house}</p></div>
                 }
                 {
                 this.state.wand !== "" && 
-                <p>Wand: {this.state.wand}</p>
+                <div><h2>Wand</h2><p>{this.state.wand}</p></div>
                 }
                 {
                 this.state.patronus !== "" && 
-                <p>Patronus: {this.state.patronus}</p>
+                <div><h2>Patronus</h2><p>{this.state.patronus}</p></div>
                 }
                 {
                 this.state.boggart !== "" &&
-                <p>Boggart: {this.state.boggart}</p>
+                <div><h2>Boggart</h2><p>{this.state.boggart}</p></div>
                 }
                 {
                 this.state.animagus !== "" && 
-                <p>Animagus: {this.state.animagus}</p>
+                <div><h2>Animagus</h2><p>{this.state.animagus}</p></div>
                 }
                 {
                 this.state.school !== "" && 
-                <p>School: {this.state.school}</p>
+                <div><h2>School</h2><p>{this.state.school}</p></div>
                 }
                 {
                 this.state.bloodStatus !== "" && 
-                <p>Blood Status: {this.state.bloodStatus}</p>
+                <div><h2>Blood Status</h2><p>{this.state.bloodStatus}</p></div>
                 }
                 {
                 this.state.species !== "" && 
-                <p>Race: {this.state.species}</p>
+                <div><h2>Race</h2><p>{this.state.species}</p></div>
+                }
+                {
+                this.state.extraInfo &&
+                <h2>Extra Information</h2>
                 }
                 {
                 this.state.ministryOfMagic === true &&
@@ -198,7 +209,7 @@ class Characters extends Component {
                 }
                 </div>
                 }
-                <button onClick={this.clickEvent}>Give a Random Character</button>
+                <button className="animated-button2" onClick={this.clickEvent}><span></span><span></span><span></span><span></span>Give a Random Character</button>
                 <br/>
             </div>
             

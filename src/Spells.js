@@ -30,8 +30,9 @@ class Spells extends Component {
         event.preventDefault()
         const randNum = Math.floor(Math.random() * this.state.allSpells.length)
         const randSpell = this.state.allSpells[randNum]
+        console.log(randNum)
         this.setState({
-            spell: randSpell.spell,
+            spell: randSpell.spell || "",
             type: randSpell.type || "",
             effect: randSpell.effect || "",
         })
@@ -44,19 +45,19 @@ class Spells extends Component {
                 <AnimateOnChange>
                 {
                 this.state.spell !== "" && 
-                <p>Spell Name: {this.state.spell}</p>
+                <div><h2>Spell Name</h2><p>{this.state.spell}</p></div>
                 }
                 {
                 this.state.type !== "" && 
-                <p>Type: {this.state.type}</p>
+                <div><h2>Type</h2><p>{this.state.type}</p></div>
                 }
                 {
                 this.state.effect !== "" && 
-                <p>Effect: {this.state.effect}</p>
+                <div><h2>Effect</h2><p>{this.state.effect}</p></div>
                 }
                 </AnimateOnChange>
                 <br/>
-                <button onClick={this.handleChange}>Give a Random Spell</button>
+                <button className="animated-button2" onClick={this.handleChange}><span></span><span></span><span></span><span></span>Give a Random Spell</button>
                 <br/>
             </div>
             
