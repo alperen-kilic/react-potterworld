@@ -18,7 +18,7 @@ class Spells extends Component {
     }
 
     componentDidMount() {
-        fetch(Constants.URI + "spells?key=" + Constants.API_KEY)
+        fetch(`${Constants.URI}spells?key=${Constants.API_KEY}`)
             .then(response => response.json())
             .then(response => {
                 const spells = response

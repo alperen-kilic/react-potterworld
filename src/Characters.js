@@ -1,10 +1,11 @@
 import React, {Component} from "react"
 import * as Constants from "./constants/index"
-import { AnimateOnChange, HideUntilLoaded } from 'react-animation';
+import { HideUntilLoaded } from 'react-animation';
 import axios from 'axios';
 import cheerio from 'cheerio';
-
 import './style.css'
+import ClipLoader from "react-spinners/ClipLoader";
+
 
 class Characters extends Component {
     constructor() {
@@ -35,57 +36,13 @@ class Characters extends Component {
     }
 
     componentDidMount() {
-        fetch(Constants.URI + "characters?key=" + Constants.API_KEY)
+        fetch(`${Constants.URI}characters?key=${Constants.API_KEY}`)
             .then(response => response.json())
             .then(response => {
                 const characters = response
                 this.setState({ allCharacters: characters })
             })
     }
-
-    // handleChange(event) {
-    //     event.preventDefault()
-    //     this.setState({
-    //         isLoading: true
-    //     })
-    //     // const randNum = Math.floor(Math.random() * this.state.allCharacters.length)
-    //     const randNum = 185
-    //     const randCharacter = this.state.allCharacters[randNum]
-    //     console.log(randNum)
-    //     axios.get('https://harrypotter.fandom.com/wiki/' + randCharacter.name.replace(/ /g,"_"))
-    //         .then(response => {
-    //             try{
-    //                 let $ = cheerio.load(response.data);
-    //                 const imageLink = $('.pi-image-thumbnail').attr('src')
-    //                 this.setState({
-    //                     image: imageLink || "",
-    //                     name: randCharacter.name,
-    //                     role: randCharacter.role || "",
-    //                     house: randCharacter.house || "",
-    //                     school: randCharacter.school || "",
-    //                     bloodStatus: randCharacter.bloodStatus || "",
-    //                     species: randCharacter.species || "",
-    //                     patronus: randCharacter.patronus || "",
-    //                     boggart: randCharacter.boggart || "",
-    //                     alias: randCharacter.alias || "",
-    //                     wand: randCharacter.wand || "",
-    //                     animagus: randCharacter.animagus || "",
-    //                     ministryOfMagic: randCharacter.ministryOfMagic || false,
-    //                     orderOfThePhoenix: randCharacter.orderOfThePhoenix || false,
-    //                     dumbledoresArmy: randCharacter.dumbledoresArmy || false,
-    //                     deathEater: randCharacter.deathEater || false,
-    //                     isLoading: false
-    //                 })
-    //             }
-    //             catch(e)
-    //             {
-    //                 console.log(e)
-    //             }
-    //         })
-    //         .catch( (error) => {
-    //             console.log(error)
-    //         })
-    // }
 
 
     clickEvent() {
@@ -100,7 +57,7 @@ class Characters extends Component {
             extras = true
         }
         console.log(randNum)
-        axios.get('https://harrypotter.fandom.com/wiki/' + randCharacter.name.replace(/ /g,"_"))
+        axios.get('https://cors-anywhere.herokuapp.com/https://harrypotter.fandom.com/wiki/' + randCharacter.name.replace(/ /g,"_"))
             .then(response => {
                 let $ = cheerio.load(response.data);
                 const imageLink = $('.pi-image-thumbnail').attr('src')
@@ -134,10 +91,15 @@ class Characters extends Component {
         return (
 
             <div className="center">
-                {this.state.isLoading ? <p>Loading</p> :
+                {this.state.isLoading ?
                 <div>
-                    <HideUntilLoaded imageToLoad={this.state.image}
-                    Spinner={() => <div>Loading...</div>}>
+                <ClipLoader
+                size={150}
+                color={"#F5A623"}
+                loading={this.state.isLoading}/>
+                </div>:
+                <div>
+                    <HideUntilLoaded imageToLoad={this.state.image}>
                     {
                     this.state.image !== "" &&
                     <img src={this.state.image} alt="character"></img>
